@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Solo Pk Pkm Mg2</title>
+    <title>Admin - Bảng giải đấu Pokemon Mega 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -67,7 +67,7 @@
 <body class="antialiased font-sans">
     <div id="app-container">
         <header class="flex justify-between items-center p-4 border-b border-slate-700">
-            <h1 class="text-2xl font-bold tracking-wider text-sky-400">ADMIN PANEL</h1>
+            <h1 class="text-2xl font-bold tracking-wider text-sky-400">BẢNG ĐIỀU KHIỂN ADMIN</h1>
         </header>
 
         <main id="main-content" class="p-4">
@@ -75,25 +75,25 @@
             <div id="admin-panel" class="p-4 my-4 bg-slate-800 rounded-lg max-w-lg mx-auto">
                 <h2 class="text-xl font-bold mb-4 text-center">Tạo danh sách thi đấu</h2>
                 <div class="mb-4">
-                    <label for="players" class="block mb-2 text-sm font-medium text-slate-300">Player Names (one per line):</label>
+                    <label for="players" class="block mb-2 text-sm font-medium text-slate-300">Tên người chơi (mỗi người một dòng):</label>
                     <textarea id="players" rows="8" class="bg-slate-700 border border-slate-600 text-slate-50 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" placeholder="Player 1&#10;Player 2&#10;Player 3..."></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="tournament-size" class="block mb-2 text-sm font-medium text-slate-300">Tournament Size:</label>
+                    <label for="tournament-size" class="block mb-2 text-sm font-medium text-slate-300">Quy mô giải đấu:</label>
                     <select id="tournament-size" class="bg-slate-700 border border-slate-600 text-slate-50 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5">
-                        <option value="4">4 Players</option>
-                        <option value="8">8 Players</option>
-                        <option value="16">16 Players</option>
+                        <option value="4">4 Người</option>
+                        <option value="8">8 Người</option>
+                        <option value="16">16 Người</option>
                     </select>
                 </div>
-                <button id="create-tournament-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Tournament</button>
+                <button id="create-tournament-btn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Tạo giải đấu</button>
             </div>
             <div id="bracket" class="bracket"></div>
         </main>
     </div>
     
     <script>
-        const ADMIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkbgjA-PygJ-ZXarsSGURMkX4lJdxI51jrClBsLZkssCvPqW-KaKC-oYeIrhShiX99/exec';
+        const ADMIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycYUWFjwErpqDI_SDgG6xgV1JB6Yo5uPryxVdFqQPkwX-VqzheEjvaChIdUz8L5UT5/exec';
 
         const bracketContainer = document.getElementById('bracket');
         const messageArea = document.getElementById('message-area');
@@ -107,27 +107,27 @@
         }
         
         async function fetchTournamentData() {
-            if (!ADMIN_SCRIPT_URL || ADMIN_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxkbgjA-PygJ-ZXarsSGURMkX4lJdxI51jrClBsLZkssCvPqW-KaKC-oYeIrhShiX99/exec') {
+            if (!ADMIN_SCRIPT_URL || ADMIN_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbycYUWFjwErpqDI_SDgG6xgV1JB6Yo5uPryxVdFqQPkwX-VqzheEjvaChIdUz8L5UT5/exec') {
                 showMessage('Chưa có dữ liệu', true);
                 return;
             }
-            showMessage('Loading tournament data...');
+            showMessage('Đang tải dữ liệu giải đấu...');
             try {
                 const response = await fetch(ADMIN_SCRIPT_URL);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                if (!response.ok) throw new Error(`Lỗi HTTP! Trạng thái: ${response.status}`);
                 const data = await response.json();
                 renderBracket(data);
                 messageArea.textContent = '';
             } catch (error) {
-                console.error('Error fetching data:', error);
-                showMessage('Could not load tournament data. Is the script URL correct and deployed?', true);
+                console.error('Lỗi tải dữ liệu:', error);
+                showMessage('Không thể tải dữ liệu giải đấu. URL script đã đúng và được triển khai chưa?', true);
             }
         }
 
         function renderBracket(data) {
             bracketContainer.innerHTML = '';
             if (!data || data.length === 0) {
-                showMessage('No tournament data found. Create one from the admin panel.');
+                showMessage('Không tìm thấy dữ liệu giải đấu. Hãy tạo một giải mới từ bảng điều khiển.');
                 return;
             }
 
@@ -191,20 +191,20 @@
             const size = parseInt(tournamentSizeSelect.value);
 
             if (players.length > size) {
-                alert(`You have ${players.length} players, but the tournament size is ${size}. Please remove some players or increase the tournament size.`);
+                alert(`Bạn đã nhập ${players.length} người chơi, nhưng quy mô giải đấu là ${size}. Vui lòng xóa bớt người chơi hoặc tăng quy mô giải đấu.`);
                 return;
             }
             
             if (players.length < 2) {
-                alert('Please enter at least 2 players.');
+                alert('Vui lòng nhập ít nhất 2 người chơi.');
                 return;
             }
 
-            if (!confirm(`This will delete any existing tournament data. Are you sure you want to create a new ${size}-player tournament?`)) {
+            if (!confirm(`Hành động này sẽ XÓA tất cả dữ liệu giải đấu hiện có. Bạn có chắc muốn tạo một giải đấu mới ${size} người chơi không?`)) {
                 return;
             }
             
-            showMessage('Creating new tournament...');
+            showMessage('Đang tạo giải đấu mới...');
             try {
                 const response = await fetch(ADMIN_SCRIPT_URL, {
                     method: 'POST',
@@ -212,16 +212,22 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'createTournament', players, size })
                 });
+                
+                // Thêm kiểm tra chi tiết cho response
+                if (!response.ok) {
+                    throw new Error(`Lỗi từ server: ${response.status} ${response.statusText}`);
+                }
+
                 const result = await response.json();
                 if (result.success) {
                     playersTextarea.value = '';
                     fetchTournamentData();
                 } else {
-                    throw new Error(result.message || 'Unknown error');
+                    throw new Error(result.message || 'Lỗi không xác định từ server.');
                 }
             } catch (error) {
-                console.error('Error creating tournament:', error);
-                showMessage(`Failed to create tournament: ${error.message}`, true);
+                console.error('Lỗi khi tạo giải đấu:', error);
+                showMessage(`Không thể tạo giải đấu: ${error.message}`, true);
             }
         });
 
