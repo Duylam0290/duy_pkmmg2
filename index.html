@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Tournament Bracket</title>
+    <title>Admin - Solo Pk Pkm Mg2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -73,7 +73,7 @@
         <main id="main-content" class="p-4">
             <div id="message-area" class="text-center text-lg"></div>
             <div id="admin-panel" class="p-4 my-4 bg-slate-800 rounded-lg max-w-lg mx-auto">
-                <h2 class="text-xl font-bold mb-4 text-center">Create Tournament</h2>
+                <h2 class="text-xl font-bold mb-4 text-center">Tạo danh sách thi đấu</h2>
                 <div class="mb-4">
                     <label for="players" class="block mb-2 text-sm font-medium text-slate-300">Player Names (one per line):</label>
                     <textarea id="players" rows="8" class="bg-slate-700 border border-slate-600 text-slate-50 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5" placeholder="Player 1&#10;Player 2&#10;Player 3..."></textarea>
@@ -93,7 +93,7 @@
     </div>
     
     <script>
-        const ADMIN_SCRIPT_URL = 'ĐIỀN_URL_SCRIPT_ADMIN_CỦA_BẠN_VÀO_ĐÂY';
+        const ADMIN_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxkbgjA-PygJ-ZXarsSGURMkX4lJdxI51jrClBsLZkssCvPqW-KaKC-oYeIrhShiX99/exec';
 
         const bracketContainer = document.getElementById('bracket');
         const messageArea = document.getElementById('message-area');
@@ -107,8 +107,8 @@
         }
         
         async function fetchTournamentData() {
-            if (!ADMIN_SCRIPT_URL || ADMIN_SCRIPT_URL === 'ĐIỀN_URL_SCRIPT_ADMIN_CỦA_BẠN_VÀO_ĐÂY') {
-                showMessage('Vui lòng cấu hình ADMIN_SCRIPT_URL trong file admin.html.', true);
+            if (!ADMIN_SCRIPT_URL || ADMIN_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxkbgjA-PygJ-ZXarsSGURMkX4lJdxI51jrClBsLZkssCvPqW-KaKC-oYeIrhShiX99/exec') {
+                showMessage('Chưa có dữ liệu', true);
                 return;
             }
             showMessage('Loading tournament data...');
